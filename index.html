@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<meta charset="utf-8">
+	<title>Time and Space</title>
+	<script>
+	    var loc = document.getElementById("loc");
+	    var time = document.getElementById("time");
+	    function getLocation() {
+  	        if (navigator.geolocation) {
+    	    	navigator.geolocation.getCurrentPosition(showPosition);
+  	    	} else { 
+    	    	document.getElementById("loc").text("Geolocation is not supported by this browser.");
+  	    	}
+	    }
+
+	    function showPosition(position) {
+  	        document.getElementById('loc').innerHTML = "Latitude: " + position.coords.latitude + 
+  	    	"<br>Longitude: " + position.coords.longitude;
+	    }
+	    function getTime() {
+  	        document.getElementById('time').innerHTML = Date();
+	    }
+	</script>
+    </head>
+
+    <body>
+	<h1>Time and Space Demonstration</h1>
+	<button onclick="getLocation()">Show Location</button>
+	<p id="loc">LOCATION</p>
+	<button onclick="getTime()">Show Time</button>
+	<p id="time">TIME</p>
+	
+    </body>
+
+
+</html>
