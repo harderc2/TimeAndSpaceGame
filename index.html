@@ -4,33 +4,90 @@
 	<meta charset="utf-8">
 	<title>Time and Space</title>
 	<script>
-	    var loc = document.getElementById("loc");
-	    var time = document.getElementById("time");
+	    var loc = document.getElementById("testLoc");
+	    var time = document.getElementById("testTime");
 	    function getLocation() {
   	        if (navigator.geolocation) {
     	    	navigator.geolocation.getCurrentPosition(showPosition);
   	    	} else { 
-    	    	document.getElementById("loc").text("Geolocation is not supported by this browser.");
+    	    	document.getElementById("testLoc").text("Geolocation is not supported by this browser.");
   	    	}
 	    }
-
 	    function showPosition(position) {
-  	        document.getElementById('loc').innerHTML = "Latitude: " + position.coords.latitude + 
+  	        document.getElementById('testLoc').innerHTML = "Latitude: " + position.coords.latitude + 
   	    	"<br>Longitude: " + position.coords.longitude;
 	    }
 	    function getTime() {
-  	        document.getElementById('time').innerHTML = Date();
+			var dt = new Date();
+			let hours = dt.getHours();
+			let minutes = dt.getMinutes();
+			var currentTime = "" + hours + ":" + minutes;
+			// dt.getHours() + ":" + dt.getMinutes() + ":" dt.getSeconds();
+  	        document.getElementById('testTime').innerHTML = "Time: " + currentTime;
 	    }
+		function checkPosition(position) { 
+			var latDiff = Math.abs(position.coords.latitude - document.getElementById('latVal').value);
+			var longDiff = Math.abs(position.coords.longitude - document.getElementById('longVal').value);
+			if (latDiff <= 1 && longDiff <= 1) {
+				document.getElementById('locCheck').innerHTML = "Location Matches!";	
+				document.getElementById('location').innerHTML = "Farmer School of Business";
+				document.getElementById('longVal').value = "-84.9413428";
+				document.getElementById('latVal').value = "39.6149312";
+				return true;
+			} else {
+				document.getElementById('locCheck').innerHTML = "Location Does Not Match!";
+				return false;
+			}
+		}
+		function checkTime() {
+			var dt = new Date();
+			let hours = dt.getHours();
+			let minutes = dt.getMinutes();
+			var currentTime = "" + hours + ":" + minutes;
+			if (currentTime >= document.getElementById('timeA').value && 
+			currentTime <= document.getElementById('timeB').value) {
+				document.getElementById('timeCheck').innerHTML = "Time Matches!";
+				document.getElementById('timeVal').innerHTML = "11:00-12:00";
+				document.getElementById('timeA').value = "11:00";
+				document.getElementById('timeB').value = "12:00";
+				return true;
+			} else {
+				document.getElementById('timeCheck').innerHTML = "Time Does Not Match!";
+				return false;
+			}
+		}
+		function check() {
+			var rightLoc = navigator.geolocation.getCurrentPosition(checkPosition);
+			var rightTime = checkTime();
+			if ( rightLoc && rightTime) {
+				document.getElementById('location').innerHTML = "Farmer School of Business";
+				document.getElementById('longVal').value = "-84.9413428";
+				document.getElementById('latVal').value = "39.6149312";
+				document.getElementById('timeVal').innerHTML = "11:00-12:00";
+				document.getElementById('timeA').value = "11:00";
+				document.getElementById('timeB').value = "12:00";
+			}
+		}
 	</script>
     </head>
 
     <body>
-	<h1>Time and Space Demonstration</h1>
+	<h1>Time Trial Game</h1>
 	<button onclick="getLocation()">Show Location</button>
-	<p id="loc">LOCATION</p>
+	<p id="testLoc">LOCATION</p>
 	<button onclick="getTime()">Show Time</button>
-	<p id="time">TIME</p>
-	
+	<p id="testTime">TIME</p>
+	<h2>You need to get to:</h2>
+	<p id="location">My House</p>
+	<input type="hidden" id = "latVal" value="39.5149312">
+	<input type="hidden" id = "longVal" value="-84.7413248">
+	<h3>Between</h3>
+	<p id="timeVal">10:00-11:00</p>
+	<input type="hidden" id = "timeA" value="10:00">
+	<input type="hidden" id = "timeB" value="11:00">
+	<button onclick="check()">I'm Here</button>
+	<p id="locCheck"></p>
+	<p id="timeCheck"></p>
     </body>
 
 
