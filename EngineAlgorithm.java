@@ -22,6 +22,13 @@ public class EngineAlgorithm {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        int length = 3;
+        String locNames[] = {"Farmer", "Benton", "Kroger"};  // new String[length];
+        double lats[] = {39.51138898096187, 39.51077679831554, 39.507347186118785};  // new double[length];
+        double longs[] = {-84.72971716997401, -84.73355333891227, -84.75120186889184};  // new double[length];, , 
+        String startTimes[] = {"10:00", "11:00", "12:00"};  // new String[length];
+        String endTimes[] = {"11:00", "12:00", "1:00"};  // new String[length];
+        
         File html = new File("test.html");
         try {
             BufferedWriter bw1 = new BufferedWriter(new FileWriter(html));
@@ -30,7 +37,7 @@ public class EngineAlgorithm {
             bw1.write("<head>\n<meta charset=\"utf-8\">\n"
                     + "<title>Time and Space</title>\n"
                     + "<script src=\"script.js\"></script>\n<head>\n");
-            bw1.write("<body>\n<h1>Time Trial Game</h1>\n"
+            bw1.write("<body onload=\"fillData()\">\n<h1>Time Trial Game</h1>\n"
                     + "<button onclick=\"getLocation()\">Show Location</button>"
                     + "\n<p id=\"testLoc\">LOCATION</p>\n"
                     + "<button onclick=\"getTime()\">Show Time</button>\n"
@@ -54,12 +61,19 @@ public class EngineAlgorithm {
             BufferedWriter bw2 = new BufferedWriter(new FileWriter(js));
             bw2.write("var loc = document.getElementById(\"testLoc\");\n"
                     + "var time = document.getElementById(\"testTime\");\n"
-                    + "var count = 0;\nvar rightSpot = false;\nvar done = false;\n"
-                    + "const locations = [\"My house\", \"Farmer School of Business\", \"Western Dining Hall\"];\n"
-                    + "const latitudes = [39.51624142364317, 39.511397732343006, 39.50475521376];\n"
-                    + "const longitudes = [-84.73920880600052, -84.72974267090659, -84.727622029366];\n"
-                    + "const startTimes = [\"10:00\", \"11:00\", \"12:00\"];\n"
-                    + "const endTimes = [\"11:00\", \"12:00\", \"1:00\"];\n");
+                    + "var count = 0;\nvar rightSpot = false;\nvar done = false;\n");
+            addData(bw2, length, locNames, lats, longs, startTimes, endTimes);
+//            bw2.write("const locations = [\"" + locNames[0] + "\", \"" + locNames[1] + "\", \"" + locNames[2] + "\"];\n");
+//            bw2.write("const latitudes = [" + lats[0] + ", " + lats[1] + ", " + lats[2] + "];\n");
+//            bw2.write("const longitudes = [" + longs[0] + ", " + longs[1] + ", " + longs[2] + "];\n");
+//            bw2.write("const startTimes = [\"" + startTimes[0] + "\", \"" + startTimes[1] + "\", \"" + startTimes[2] + "\"];\n");
+//            bw2.write("const endTimes = [\"" + endTimes[0] + "\", \"" + endTimes[1] + "\", \"" + endTimes[2] + "\"];\n");
+            bw2.write("function fillData()	{\n" +
+"                       document.getElementById('location').innerHTML = locations[0];\n" +
+"                       document.getElementById('longVal').value = longitudes[0];\n" +
+"                       document.getElementById('latVal').value = latitudes[0]; \n" +
+"                       document.getElementById('timeVal').innerHTML = startTimes[0] + \"-\" + endTimes[0];\n" +
+                        "}");   
             bw2.write("function getLocation() {\n"
                     + "if (navigator.geolocation) {\n"
                     + "navigator.geolocation.getCurrentPosition(showPosition);\n"
@@ -148,6 +162,39 @@ public class EngineAlgorithm {
             bw2.close();
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+    public static void addData(BufferedWriter bw2, int length, String locNames[], 
+            double lats[], double longs[], String startTimes[], String endTimes[]){
+        int i = 0;
+        try {
+            bw2.write("const locations = [");
+            for (i = 0; i < length-1 ; i++) {
+                bw2.write(" \"" + locNames[i] + "\",");
+            }
+            bw2.write(" \"" + locNames[i] + "\"];\n");
+            bw2.write("const latitudes = [");
+            for (i = 0; i < length-1 ; i++) {
+                bw2.write(" " + lats[i] + ",");
+            }
+            bw2.write(" " + lats[i] + "];\n");
+            bw2.write("const longitudes = [");
+            for (i = 0; i < length-1 ; i++) {
+                bw2.write(" " + longs[i] + ",");
+            }
+            bw2.write(" " + longs[i] + "];\n");
+            bw2.write("const startTimes = [");
+            for (i = 0; i < length-1 ; i++) {
+                bw2.write(" \"" + startTimes[i] + "\",");
+            }
+            bw2.write(" \"" + startTimes[i] + "\"];\n");
+            bw2.write("const endTimes = [");
+            for (i = 0; i < length-1 ; i++) {
+                bw2.write(" \"" + endTimes[i] + "\",");
+            }
+            bw2.write(" \"" + endTimes[i] + "\"];\n");
+        } catch (IOException ex) {
+            Logger.getLogger(EngineAlgorithm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
