@@ -5,12 +5,15 @@
  */
 package enginealgorithm;
 
+import static enginealgorithm.XMLTesting.getXMLSize;
+import static enginealgorithm.XMLTesting.readData;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -22,13 +25,20 @@ public class EngineAlgorithm {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int length = 3;
-        String locNames[] = {"Farmer", "Benton", "Kroger"};  // new String[length];
-        double lats[] = {39.51138898096187, 39.51077679831554, 39.507347186118785};  // new double[length];
-        double longs[] = {-84.72971716997401, -84.73355333891227, -84.75120186889184};  // new double[length];, , 
-        String startTimes[] = {"10:00", "11:00", "12:00"};  // new String[length];
-        String endTimes[] = {"11:00", "12:00", "1:00"};  // new String[length];
-        
+        int length = 0;
+        try {
+            length = getXMLSize();
+        } catch (SAXException ex) {
+            Logger.getLogger(EngineAlgorithm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(EngineAlgorithm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String locNames[] = new String[length]; // {"Farmer", "Benton", "Kroger"};  // new String[length];
+        double lats[] = new double[length]; //{39.51138898096187, 39.51077679831554, 39.507347186118785};  // new double[length];
+        double longs[] = new double[length]; //{-84.72971716997401, -84.73355333891227, -84.75120186889184};  // new double[length];, , 
+        String startTimes[] = new String[length]; //{"10:00", "11:00", "12:00"};  // new String[length];
+        String endTimes[] = new String[length]; //{"11:00", "12:00", "1:00"};  // new String[length];
+        readData(locNames, lats, longs, startTimes, endTimes);
         File html = new File("test.html");
         try {
             BufferedWriter bw1 = new BufferedWriter(new FileWriter(html));

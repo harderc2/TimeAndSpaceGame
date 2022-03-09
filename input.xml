@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<game>
+    <location id="Farmer">
+        <latitude>39.51138898096187</latitude>
+        <longitude>-84.72971716997401</longitude>
+        <startTime>10:00</startTime>
+        <endTime>11:00</endTime>
+    </location>
+    <location id="Benton">
+        <latitude>39.51077679831554</latitude>
+        <longitude>-84.73355333891227</longitude>
+        <startTime>11:00</startTime>
+        <endTime>12:00</endTime>
+    </location>
+	<location id="Kroger">
+        <latitude>39.507347186118785</latitude>
+        <longitude>-84.75120186889184</longitude>
+        <startTime>12:00</startTime>
+        <endTime>1:00</endTime>
+    </location>
+</game>
