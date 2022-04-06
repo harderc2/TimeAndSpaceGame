@@ -5,6 +5,7 @@
  */
 package enginealgorithm;
 
+import static enginealgorithm.XMLTesting.getTitle;
 import static enginealgorithm.XMLTesting.getXMLSize;
 import static enginealgorithm.XMLTesting.readData;
 import java.io.BufferedWriter;
@@ -26,8 +27,10 @@ public class EngineAlgorithm {
      */
     public static void main(String[] args) {
         int length = 0;
+        String gameTitle = "";
         try {
             length = getXMLSize();
+            gameTitle = getTitle();
         } catch (SAXException ex) {
             Logger.getLogger(EngineAlgorithm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -45,9 +48,10 @@ public class EngineAlgorithm {
             bw1.write("<!DOCTYPE html>\n");
             bw1.write("<html lang=\"en\">\n");
             bw1.write("<head>\n<meta charset=\"utf-8\">\n"
-                    + "<title>Time and Space</title>\n"
+                    + "<title>" + gameTitle + "</title>\n"
+                    +"<link rel=\"stylesheet\" href=\"styles.css\">\n"
                     + "<script src=\"script.js\"></script>\n<head>\n");
-            bw1.write("<body onload=\"fillData()\">\n<h1>Time Trial Game</h1>\n"
+            bw1.write("<body onload=\"fillData()\">\n<h1>" + gameTitle + "</h1>\n"
                     + "<button onclick=\"getLocation()\">Show Location</button>"
                     + "\n<p id=\"testLoc\">LOCATION</p>\n"
                     + "<button onclick=\"getTime()\">Show Time</button>\n"
@@ -207,5 +211,38 @@ public class EngineAlgorithm {
             Logger.getLogger(EngineAlgorithm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public static void addTimes(BufferedWriter bw2, String startTimes[][], String endTimes[][]){ 
+        try {
+            int i=0, j=0;
+            bw2.write("const startTimes = [");
+            for (i = 0; i < startTimes.length ; i++) {
+                bw2.write("[");
+                for (j = 0; j < startTimes[i].length-1 ; j++) {
+                    bw2.write(" \"" + startTimes[i][j] + "\",");
+                }
+                bw2.write(" \"" + startTimes[i][j] + "\"]");
+                if (i == startTimes.length-1) {
+                    bw2.write("]");
+                } else {
+                    bw2.write(",");
+                }
+            }
+            bw2.write("const endTimes = [");
+            for (i = 0; i < endTimes.length ; i++) {
+                bw2.write("[");
+                for (j = 0; j < endTimes[i].length-1 ; j++) {
+                    bw2.write(" \"" + endTimes[i][j] + "\",");
+                }
+                bw2.write(" \"" + endTimes[i][j] + "\"]");
+                if (i == endTimes.length-1) {
+                    bw2.write("]");
+                } else {
+                    bw2.write(",");
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(EngineAlgorithm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }   
     
 }

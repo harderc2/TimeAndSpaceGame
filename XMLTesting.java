@@ -28,10 +28,38 @@ import javax.xml.XMLConstants;
 public class XMLTesting {
 
 
-  private static final String FILENAME = "input2.xml";
+  private static final String FILENAME = "input.xml";
 
   public static void main(String[] args) throws SAXException, IOException {
-      
+    String[][] doubleTest = {{"one", "two", "three"}, {"four", "five"}, {"six", "seven", "eight", "nine"}};
+    System.out.print("const startTimes = [");
+        int i=0, j=0;
+            for (i = 0; i < doubleTest.length ; i++) {
+                System.out.print("[");
+                for (j = 0; j < doubleTest[i].length-1 ; j++) {
+                    System.out.print(" \"" + doubleTest[i][j] + "\",");
+                }
+                System.out.print(" \"" + doubleTest[i][j] + "\"]");
+                if (i == doubleTest.length-1) {
+                    System.out.print("]");
+                } else {
+                    System.out.print(",");
+                }
+            }
+  }
+  public static String getTitle() throws SAXException, IOException {
+      String title = "";
+      try {
+          DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+          dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+          DocumentBuilder db = dbf.newDocumentBuilder();
+          Document doc = db.parse(new File(FILENAME));
+          doc.getDocumentElement().normalize();
+          title = doc.getElementsByTagName("title").item(0).getTextContent();
+      } catch (ParserConfigurationException ex) {
+          Logger.getLogger(XMLTesting.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      return title;
   }
   public static int getXMLSize() throws SAXException, IOException {
       int length = 0;

@@ -2,7 +2,7 @@
  Make the GUI look nicer
  Add a Clear Button?
  */
-package enginealgorithm
+package enginealgorithm;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -168,6 +168,8 @@ public class GameEngineGUI extends Application {
       @Override
       public void handle(ActionEvent e) {
         writeXMLOutro();
+        String[] args = {""};
+        EngineAlgorithm.main(args);
         Platform.exit();
       }});
     
@@ -224,6 +226,7 @@ public class GameEngineGUI extends Application {
       BufferedWriter buffWrite = new BufferedWriter(fileWrite);
       buffWrite.write("<?xml version='1.0'?>\n");
       buffWrite.write("<game>\n");
+      buffWrite.write("<title>Run Around Oxford</title>");
       buffWrite.close();
       
     } catch(IOException ioError) {
@@ -241,6 +244,7 @@ public class GameEngineGUI extends Application {
       buffWrite.write("<longitude>" + longitude + "</longitude>\n");
       buffWrite.write("<startTime>" + startTime + "</startTime>\n");
       buffWrite.write("<endTime>" + endTime + "</endTime>\n");
+      buffWrite.write("</location>\n");
       buffWrite.close();
       
     } catch(IOException ioError) {
@@ -252,7 +256,7 @@ public class GameEngineGUI extends Application {
     try {
       FileWriter fileWrite = new FileWriter(xml, true);
       BufferedWriter buffWrite = new BufferedWriter(fileWrite);
-      buffWrite.write("<game>\n");
+      buffWrite.write("</game>\n");
       buffWrite.close();
       
     } catch(IOException ioError) {
