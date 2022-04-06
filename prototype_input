@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+<game>
+<title>Run Around Oxford</title>
+<timeTog>0</timeTog> <!-- 0 if you are just doing a running time, 1 if hard times -->
+<location id='Doughbys'>
+	<locID>0<locID> <!-- number used to identify which location to go to -->
+	<onTime>1</onTime> <!-- location sent to if in the time limit -->
+	<wrongTime>2</wrongTime> <!-- location sent to if outside the time limit -->
+	<latitude>80.0</latitude>
+	<longitude>-14.0</longitude>
+	<startTime>00:00</startTime> <!-- will figure out how to implement time data with running time -->
+	<endTime>00:15</endTime>
+</location>
+<location id='benton'>
+	<locID>1<locID> <!-- number used to identify which location to go to -->
+	<onTime>2</onTime> <!-- location sent to if in the time limit -->
+	<wrongTime>-1</wrongTime> <!-- location sent to if outside the time limit -->
+	<latitude>84.0</latitude>
+	<longitude>-18.0</longitude>
+	<startTime>00:15</startTime>
+	<endTime>00:30</endTime>
+</location>
+<location id='walmart'>
+	<locID>2<locID> <!-- number used to identify which location to go to -->
+	<onTime>0</onTime> <!-- location sent to if in the time limit -->
+	<wrongTime>-1</wrongTime> <!-- location sent to if outside the time limit -->
+	<latitude>75.0</latitude>
+	<longitude>-10.0</longitude>
+	<startTime>00:45</startTime>
+	<endTime>01:15</endTime>
+</location>
+</game>
