@@ -76,8 +76,23 @@ public class XMLTesting {
       }
       return length;
   }
+  public static int getTimeTog() throws SAXException, IOException {
+      int tog = 0;
+      try {
+          DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+          dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+          DocumentBuilder db = dbf.newDocumentBuilder();
+          Document doc = db.parse(new File(FILENAME));
+          doc.getDocumentElement().normalize();
+          tog = Integer.parseInt(doc.getElementsByTagName("timeTog").item(0).getTextContent());
+      } catch (ParserConfigurationException ex) {
+          Logger.getLogger(XMLTesting.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      return tog;
+  }
   public static void readData( String locNames[], 
-            double lats[], double longs[], String startTimes[], String endTimes[]) {
+            double lats[], double longs[], String startTimes[], String endTimes[],
+            int locID[], int onTime[], int wrongTime[]) {
       // Instantiate the Factory
       DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
       int length = 0;
@@ -112,18 +127,26 @@ public class XMLTesting {
 
                   // get staff's attribute
                   String loc = element.getAttribute("id");
+                  
 
                   // get text
                   String lat = element.getElementsByTagName("latitude").item(0).getTextContent();
                   String lon = element.getElementsByTagName("longitude").item(0).getTextContent();
                   String startT = element.getElementsByTagName("startTime").item(0).getTextContent();
                   String endT = element.getElementsByTagName("endTime").item(0).getTextContent();
-
+                  String lID = element.getElementsByTagName("locID").item(0).getTextContent();
+                  String onT = element.getElementsByTagName("onTime").item(0).getTextContent();
+                  String wrongT = element.getElementsByTagName("wrongTime").item(0).getTextContent();
+                  
                   locNames[i] = loc;
                   lats[i] = Float.parseFloat(lat);
                   longs[i] = Float.parseFloat(lon);
                   startTimes[i] = startT;
                   endTimes[i] = endT;
+                  locID[i] = Integer.parseInt(lID);
+                  onTime[i] = Integer.parseInt(onT);
+                  wrongTime[i] = Integer.parseInt(wrongT);
+                  
               }
           }
 
